@@ -34,6 +34,7 @@ def get_text():
     )
     return input_text
 
+user_input = None
 while not user_input:
     user_input = get_text()
 
