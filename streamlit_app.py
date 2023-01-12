@@ -16,6 +16,8 @@ def generate_initial_response(prompt):
         temperature = 0.7,
     )
     message = completions.choices[0].text
+    if message[0] == "?":
+        message = message[2:]
     return message
 
 st.title("KPJ ChatGPT: powered by Streamlit and OpenAI")
