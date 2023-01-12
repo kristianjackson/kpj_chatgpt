@@ -27,28 +27,20 @@ if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 def get_text():
-    input_text = st.text_input(
-        "You: ",
-        "Hello, how are you?",
-        key = "input"
-    )
+    input_text = st.text_area("You: ", key="input")
     return input_text
 
-user_input = None
-while not user_input:
-    user_input = get_text()
+user_input = get_text()
 
-output = generate_initial_response(user_input)
-st.session_state.past.append(user_input)
-st.session_state.generated.append(output)
+if user_input:
+    submit_button = st.button("Submit")
+    if submit_button:
+        output = generate_initial_response(user_input)
+        st.session_state.past.append(user_input)
+        st.session_state.generated.append(output)
 
-for i in range(len(st.session_state['generated'])):
-    stc.message(
-        st.session_state['generated'][i],
-        key = str(i)
-    )
-    stc.message(
-        st.session_state['past'][i],
-        is_user = True,
-        key = str(i) + '_user'
-    )
+        for i in range(len(st.session_state['generated'])-1, -1, -1):
+            stc.message(st.session_state['generated'][i], key = str(i))
+            stc.message(st.session_state['past'][i], is_user = True, key = str(i) + '_user')
+    else:
+        st.error("Please enter a message in the text area before pressing submit.")
