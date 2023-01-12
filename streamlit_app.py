@@ -1,6 +1,6 @@
 import openai
 import streamlit as st
-import streamlit_chat
+import streamlit_chat as stc
 
 openai.api_key = st.secrets["openai_api_key"]
 
@@ -42,11 +42,11 @@ if user_input:
 
 if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1):
-        message(
+        stc.message(
             st.session_state['generated'][i],
             key = str(i)
         )
-        message(
+        stc.message(
             st.session_state['past'][i],
             is_user = True,
             key = str(i) + '_user'
