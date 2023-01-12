@@ -22,7 +22,7 @@ st.title("KPJ ChatGPT: powered by Streamlit and OpenAI")
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
 
-if 'past' no in st.session_state:
+if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 def get_text():
