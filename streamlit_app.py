@@ -34,20 +34,20 @@ def get_text():
     )
     return input_text
 
-user_input = get_text()
-if user_input:
-    output = generate_initial_response(user_input)
-    st.session_state.past.append(user_input)
-    st.session_state.generated.append(user_input)
+while not user_input:
+    user_input = get_text()
 
-if st.session_state['generated']:
-    for i in range(len(st.session_state['generated'])-1):
-        stc.message(
-            st.session_state['generated'][i],
-            key = str(i)
-        )
-        stc.message(
-            st.session_state['past'][i],
-            is_user = True,
-            key = str(i) + '_user'
-        )
+output = generate_initial_response(user_input)
+st.session_state.past.append(user_input)
+st.session_state.generated.append(output)
+
+for i in range(len(st.session_state['generated'])):
+    stc.message(
+        st.session_state['generated'][i],
+        key = str(i)
+    )
+    stc.message(
+        st.session_state['past'][i],
+        is_user = True,
+        key = str(i) + '_user'
+    )
